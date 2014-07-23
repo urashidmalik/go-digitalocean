@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./digitalocean"
-	"./digitalocean/v2"
+	"github.com/urashidmalik/go-digitalocean/digitalocean"
+	"github.com/urashidmalik/go-digitalocean/digitalocean/v2"
 	"log"
 )
 
@@ -14,7 +14,7 @@ func main() {
 	client = digitalocean.NewDoClient(digitalocean.APIV2)
 	dropletID = "2151455"
 	//dropletCreateTest()
-	//dropletListTest()
+	dropletListTest()
 	//dropletDeleteTest()
 	//dropletEventTest()
 	//dropletRebootTest()
@@ -24,7 +24,7 @@ func main() {
 	//dropletPowerOnTest()
 	//dropletPasswordResetTest()
 	//dropletResizeTest()
-	 // dropletRestoreTest()
+	// dropletRestoreTest()
 	// dropletRebuildTest()
 	// dropletRenameTest()
 	// dropletEnableIpv6Test()
@@ -34,24 +34,24 @@ func main() {
 	// domainListTest()
 	// showDomainTest()
 	// createDomainTest()
-	 deleteDomainTest()
+	// deleteDomainTest()
 
 	//http://attilaolah.eu/2013/11/29/json-decoding-in-go/
 
 }
 
 func dropletListTest() {
-	
+
 	if listDropletRes, errL := client.ListDroplets(); errL != nil {
 		log.Printf("Houston We have Problem :%v", errL)
 	} else {
-		log.Printf("Droplet List %v", listDropletRes.(*v2.ListDropletResponse).Droplets[0].Id)
+		log.Printf("Droplet List %v", listDropletRes)
 	}
 
 }
 
 func dropletCreateTest() {
-	
+
 	if createDropletRes, err := client.CreateDroplet("Auto2", v2.REGION_NEWYORK_1, "512mb", "3100616"); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -67,7 +67,7 @@ func dropletDeleteTest() {
 	}
 }
 func dropletEventTest() {
-	
+
 	if dropletActionsResponse, err := client.ActionsDroplet(dropletID); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -82,7 +82,7 @@ func dropletRebootTest() {
 	}
 }
 func dropletPowerCycleTest() {
-	
+
 	if dropletActionResponse, err := client.PowerCycleDroplet(dropletID); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -90,7 +90,7 @@ func dropletPowerCycleTest() {
 	}
 }
 func dropletShutdownTest() {
-	
+
 	if dropletActionResponse, err := client.ShutdownDroplet(dropletID); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -98,7 +98,7 @@ func dropletShutdownTest() {
 	}
 }
 func dropletPowerOffTest() {
-	
+
 	if dropletActionResponse, err := client.PowerOffDroplet(dropletID); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -106,7 +106,7 @@ func dropletPowerOffTest() {
 	}
 }
 func dropletPowerOnTest() {
-	
+
 	if dropletActionResponse, err := client.PowerOnDroplet(dropletID); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -114,7 +114,7 @@ func dropletPowerOnTest() {
 	}
 }
 func dropletPasswordResetTest() {
-	
+
 	if dropletActionResponse, err := client.PasswordResetDroplet(dropletID); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -129,7 +129,7 @@ func dropletResizeTest() {
 	}
 }
 func dropletRestoreTest() {
-	
+
 	if dropletActionResponse, err := client.RestoreDroplet(dropletID, "5101820"); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -137,7 +137,7 @@ func dropletRestoreTest() {
 	}
 }
 func dropletRebuildTest() {
-	
+
 	if dropletActionResponse, err := client.RebuildDroplet(dropletID, "3100616"); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -145,7 +145,7 @@ func dropletRebuildTest() {
 	}
 }
 func dropletRenameTest() {
-	
+
 	if dropletActionResponse, err := client.RenameDroplet(dropletID, "Auto1UmairApitest"); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -153,7 +153,7 @@ func dropletRenameTest() {
 	}
 }
 func dropletEnableIpv6Test() {
-	
+
 	if dropletActionResponse, err := client.EnableIpv6Droplet(dropletID); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -161,7 +161,7 @@ func dropletEnableIpv6Test() {
 	}
 }
 func dropletDisableBackupsTest() {
-	
+
 	if dropletActionResponse, err := client.DisableBackupsDroplet(dropletID); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -169,7 +169,7 @@ func dropletDisableBackupsTest() {
 	}
 }
 func dropletEnablePrivateNetworkingTest() {
-	
+
 	if dropletActionResponse, err := client.EnablePrivateNetworkingDroplet(dropletID); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
@@ -177,7 +177,7 @@ func dropletEnablePrivateNetworkingTest() {
 	}
 }
 func dropletSnapshotTest() {
-	
+
 	if dropletActionResponse, err := client.SnapshotDroplet(dropletID); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {

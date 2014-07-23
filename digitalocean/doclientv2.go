@@ -1,7 +1,7 @@
 package digitalocean
 
 import (
-	"./v2"
+	"github.com/urashidmalik/go-digitalocean/digitalocean/v2"
 	"log"
 )
 

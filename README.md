@@ -4,10 +4,25 @@ go-digitalocean
 GO digital ocean API for version 2 and version 1. As of now only version 2 is implemented
 
 # Usage
-use go get github/urashidmalik/go-digitalocean to get the library. For Quick reference use test_library.go file to understand how to use the library.
+use go get github/urashidmalik/go-digitalocean to get the library. 
 
 #### Configuration
-You need to open config.json file and add your digitalocean API KEY
+* Copy github.com/urashidmalik/go-digitalocean/config.json file 
+* Update your digitalocean API KEY
+* Place file in your $GOPATH
+* E.G 
+
+
+>**myProj**  
+>>**├──config.json**  
+>>**├──bin**  
+>>**├──pkg**  
+>>**└──src**  
+>>>> **└─────github.com/**  
+
+      
+
+#### Sample config.json file
 	
 	{
 		"API_TOKEN":"API_KEY_GOES_HERE"
@@ -15,25 +30,7 @@ You need to open config.json file and add your digitalocean API KEY
 
 #### Importing and Using go-digitalocean Library in you program
 ###### Basic Usage
-
-	package main
-
-	import (
-		"./github.com/urashidmalik/go-digitalocean/digitalocean"
-		"./github.com/urashidmalik/go-digitalocean/digitalocean/v2"
-		"log"
-	)
-
-	func main() {
-		// Basic Usage
-		listDropletResponseBasic, _ := client.ListDroplets()
-		// Please remember you will get Interface Object which you can cast to *v2.listDropletResponseBasic
-		log.Printf("Droplet List %v", listDropletRes.(*v2.listDropletResponseBasic))
-
-	}
-
-###### Usage with Error Handling
-
+  
 	package main
 
 	import (
@@ -43,12 +40,37 @@ You need to open config.json file and add your digitalocean API KEY
 	)
 
 	func main() {
-		// Usage with error Handling
-		if listDropletRes, errL := client.ListDroplets(); errL != nil {
-			log.Printf("Houston We have Problem :%v", errL)
-		} else {
-			log.Printf("Droplet List %v", listDropletRes.(*v2.ListDropletResponse).Droplets[0].Id)
-		}
+		var client digitalocean.DoProvisioner
+		log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+		client = digitalocean.NewDoClient(digitalocean.APIV2)
+		
+		// Basic Usage
+		listDropletResponseBasic, _ := client.ListDroplets()
+		// Please remember you will get Interface Object which you can cast to *v2.ListDropletResponse
+		log.Printf("Droplet List %v", listDropletRes.(*v2.ListDropletResponse))
+	}
+
+###### Usage with Error Handling
+
+  
+	package main
+
+	import (
+	    "github.com/urashidmalik/go-digitalocean/digitalocean"
+	    "github.com/urashidmalik/go-digitalocean/digitalocean/v2"
+	    "log"
+	)
+
+	func main() {
+	    var client digitalocean.DoProvisioner
+	    log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+	    client = digitalocean.NewDoClient(digitalocean.APIV2)
+	        // Usage with error Handling
+	    if listDropletRes, errL := client.ListDroplets(); errL != nil {
+	        log.Printf("Houston We have Problem :%v", errL)
+	    } else {
+	        log.Printf("Droplet List %v", listDropletRes.(*v2.ListDropletResponse))
+	    }
 	}
 
 #### Implemented Functionality (API version 2)
