@@ -93,3 +93,4 @@ func (this *Domain) Delete(domainName string) error {
 
 	return nil
 }
+

@@ -100,3 +100,14 @@ use go get github/urashidmalik/go-digitalocean to get the library.
 * Show Domain Information
 * Create a Domain
 * Delete a Domain
+
+###### Domain Records
+* Create AAAA Domain Record
+* Create A Domain Record
+* Create MX Domain Record
+* Create TXT Domain Record
+* Create SRV Domain Record
+* Create NS Domain Record
+* List Domain Records Test
+* Show Domain Record Test
+* Delete DomainRecordTest

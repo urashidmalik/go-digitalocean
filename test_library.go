@@ -7,23 +7,25 @@ import (
 )
 
 var client digitalocean.DoProvisioner
-var dropletID string
+var dropletID int64
+var myDomainName string
 
 func main() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	client = digitalocean.NewDoClient(digitalocean.APIV2)
-	dropletID = "2151455"
-	//dropletCreateTest()
-	dropletListTest()
-	//dropletDeleteTest()
-	//dropletEventTest()
-	//dropletRebootTest()
-	//dropletPowerCycleTest()
-	//dropletShutdownTest()
-	//dropletPowerOffTest()
-	//dropletPowerOnTest()
-	//dropletPasswordResetTest()
-	//dropletResizeTest()
+	dropletID = 2170797
+	myDomainName = "testmeum.com"
+	// dropletCreateTest()
+	// dropletListTest()
+	// dropletDeleteTest()
+	// dropletEventTest()
+	// dropletRebootTest()
+	// dropletPowerCycleTest()
+	// dropletShutdownTest()
+	// dropletPowerOffTest()
+	// dropletPowerOnTest()
+	// dropletPasswordResetTest()
+	// dropletResizeTest()
 	// dropletRestoreTest()
 	// dropletRebuildTest()
 	// dropletRenameTest()
@@ -35,8 +37,15 @@ func main() {
 	// showDomainTest()
 	// createDomainTest()
 	// deleteDomainTest()
-
-	//http://attilaolah.eu/2013/11/29/json-decoding-in-go/
+	// createAAAADomainRecordTest()
+	// createADomainRecordTest()
+	// createMXDomainRecordTest()
+	// createTXTDomainRecordTest()
+	// createSRVDomainRecordTest()
+	// createNSDomainRecordTest()
+	// listDomainRecordsTest()
+	// showDomainRecordTest()
+	// deleteDomainRecordTest()
 
 }
 
@@ -196,7 +205,7 @@ func domainListTest() {
 func showDomainTest() {
 	var domainResponse interface{}
 	var err error
-	if domainResponse, err = client.ShowDomain("mydn.com"); err != nil {
+	if domainResponse, err = client.ShowDomain(myDomainName); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
 		log.Printf("Domain %v", domainResponse.(*v2.DomainResponse).Domain.Name)
@@ -205,7 +214,7 @@ func showDomainTest() {
 func createDomainTest() {
 	var domainResponse interface{}
 	var err error
-	if domainResponse, err = client.CreateDomain("mydnauto.com", "20.195.2.1"); err != nil {
+	if domainResponse, err = client.CreateDomain(myDomainName, "20.195.2.1"); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
 		log.Printf("Create Domain %v", domainResponse.(*v2.DomainResponse))
@@ -213,9 +222,94 @@ func createDomainTest() {
 }
 func deleteDomainTest() {
 	var err error
-	if err = client.DeleteDomain("mydnauto.com"); err != nil {
+	if err = client.DeleteDomain(myDomainName); err != nil {
 		log.Printf("Houston We have Problem :%v", err)
 	} else {
 		log.Printf("Deleted Domain ")
+	}
+}
+func createAAAADomainRecordTest() {
+	var domainRecordResponse interface{}
+	var err error
+	if domainRecordResponse, err = client.CreateAAAADomainRecord(myDomainName, "ipv4","2001:db8::ff00:42:8329"); err != nil {
+		log.Printf("Houston We have Problem :%v", err)
+	} else {
+		log.Printf("Domain Record AAAA : %v", domainRecordResponse.(*v2.DomainRecordResponse))
+	}
+}
+func createADomainRecordTest() {
+	var domainRecordResponse interface{}
+	var err error
+	if domainRecordResponse, err = client.CreateADomainRecord(myDomainName, "subdomain", "127.0.0.1"); err != nil {
+		log.Printf("Houston We have Problem :%v", err)
+	} else {
+		log.Printf("Domain Record A: %v", domainRecordResponse.(*v2.DomainRecordResponse))
+	}
+}
+func createMXDomainRecordTest() {
+	var domainRecordResponse interface{}
+	var err error
+	if domainRecordResponse, err = client.CreateMXDomainRecord(myDomainName, "subdomain", 65535); err != nil {
+		log.Printf("Houston We have Problem :%v", err)
+	} else {
+		log.Printf("Domain Record MX: %v", domainRecordResponse.(*v2.DomainRecordResponse))
+	}
+}
+func createTXTDomainRecordTest() {
+	var domainRecordResponse interface{}
+	var err error
+	if domainRecordResponse, err = client.CreateTXTDomainRecord(myDomainName, "recordname", "arbitrary data here"); err != nil {
+		log.Printf("Houston We have Problem :%v", err)
+	} else {
+		log.Printf("Domain Record TXT: %v", domainRecordResponse.(*v2.DomainRecordResponse))
+	}
+}
+func createSRVDomainRecordTest() {
+	var domainRecordResponse interface{}
+	var err error
+	if domainRecordResponse, err = client.CreateSRVDomainRecord(myDomainName, "servicename", "targethost", 0, 1, 0); err != nil {
+		log.Printf("Houston We have Problem :%v", err)
+	} else {
+		log.Printf("Domain Record SRV: %v", domainRecordResponse.(*v2.DomainRecordResponse))
+	}
+}
+func createNSDomainRecordTest() {
+	var domainRecordResponse interface{}
+	var err error
+	if domainRecordResponse, err = client.CreateNSDomainRecord(myDomainName, "ns1.urashidmalik.com."); err != nil {
+		log.Printf("Houston We have Problem :%v", err)
+	} else {
+		log.Printf("Domain Record NS: %v", domainRecordResponse.(*v2.DomainRecordResponse))
+	}
+}
+func listDomainRecordsTest() {
+	var listDomainRecordResponse interface{}
+	var err error
+	if listDomainRecordResponse, err = client.ListDomainRecords(myDomainName); err != nil {
+		log.Printf("Houston We have Problem :%v", err)
+	} else {
+		log.Printf("List Domain Records: %v", listDomainRecordResponse.(*v2.ListDomainRecordResponse))
+	}
+}
+func showDomainRecordTest() {
+	var domainRecordResponse interface{}
+	var err error
+	ldomainRecordResponse, _ := client.ListDomainRecords(myDomainName)
+	myDomainRecId := ldomainRecordResponse.(*v2.ListDomainRecordResponse).Domain_records[0].Id
+
+	if domainRecordResponse, err = client.ShowDomainRecord(myDomainName, myDomainRecId); err != nil {
+		log.Printf("Houston We have Problem :%v", err)
+	} else {
+		log.Printf("Show Domain Record: %v", domainRecordResponse.(*v2.DomainRecordResponse))
+	}
+}
+func deleteDomainRecordTest() {
+	var err error
+	ldomainRecordResponse, _ := client.ListDomainRecords(myDomainName)
+	myDomainRecId := ldomainRecordResponse.(*v2.ListDomainRecordResponse).Domain_records[0].Id
+	if err = client.DeleteDomainRecord(myDomainName, myDomainRecId); err != nil {
+		log.Printf("Houston We have Problem :%v", err)
+	} else {
+		log.Printf("Domain Record Deleted: ")
 	}
 }

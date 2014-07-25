@@ -76,11 +76,11 @@ func (this *Droplet) List() (*ListDropletResponse, error) {
 }
 
 // Delete a droplet
-func (this *Droplet) Delete(dropletId string) error {
-	log.Println("Delete Droplet!!: " + dropletId)
+func (this *Droplet) Delete(dropletId int64) error {
+	log.Printf("Delete Droplet!!: %v" , dropletId)
 	_, err := GetJsonResponse(
 		"DELETE",
-		DIGITALOCEAN_API_URL_PREFIX+"/droplets/"+dropletId,
+		fmt.Sprintf("%v/droplets/%v", DIGITALOCEAN_API_URL_PREFIX, dropletId),
 		"")
 	if err != nil {
 		return err
@@ -91,8 +91,8 @@ func (this *Droplet) Delete(dropletId string) error {
 }
 
 // Get droplet Events
-func (this *Droplet) Actions(dropletId string) (interface{}, error) {
-	log.Println("Droplet Actions for: !!: " + dropletId)
+func (this *Droplet) Actions(dropletId int64) (interface{}, error) {
+	log.Printf("Droplet Actions for: !!: %v" , dropletId)
 	var dropletActionsResponse *DropletActionsResponse
 	jsonBody, err := GetJsonResponse(
 		"GET",
@@ -110,110 +110,110 @@ func (this *Droplet) Actions(dropletId string) (interface{}, error) {
 }
 
 // Reboot droplet
-func (this *Droplet) Reboot(dropletId string) (interface{}, error) {
-	log.Println("Rebooting Droplet: !!: " + dropletId)
+func (this *Droplet) Reboot(dropletId int64) (interface{}, error) {
+	log.Printf("Rebooting Droplet: !!: %v" , dropletId)
 	return this.basicDropletAction(dropletId, DROPLETACTION_REBOOT)
 
 }
 
 // PowerCycle droplet
-func (this *Droplet) PowerCycle(dropletId string) (interface{}, error) {
-	log.Println("Power Cycle Droplet: !!: " + dropletId)
+func (this *Droplet) PowerCycle(dropletId int64) (interface{}, error) {
+	log.Printf("Power Cycle Droplet: !!: %v" , dropletId)
 	return this.basicDropletAction(dropletId, DROPLETACTION_POWER_CYCLE)
 
 }
 
 // Shutdown droplet
-func (this *Droplet) Shutdown(dropletId string) (interface{}, error) {
-	log.Println("Graceful Shutdown Droplet: !!: " + dropletId)
+func (this *Droplet) Shutdown(dropletId int64) (interface{}, error) {
+	log.Printf("Graceful Shutdown Droplet: !!: %v" , dropletId)
 	return this.basicDropletAction(dropletId, DROPLETACTION_SHUTDOWN)
 
 }
 
 // Power off droplet
-func (this *Droplet) PowerOff(dropletId string) (interface{}, error) {
-	log.Println("Hard Power Off Droplet: !!: " + dropletId)
+func (this *Droplet) PowerOff(dropletId int64) (interface{}, error) {
+	log.Printf("Hard Power Off Droplet: !!: %v" , dropletId)
 	return this.basicDropletAction(dropletId, DROPLETACTION_POWER_OFF)
 
 }
 
 // Power On droplet
-func (this *Droplet) PowerOn(dropletId string) (interface{}, error) {
-	log.Println("Power On Droplet: !!: " + dropletId)
+func (this *Droplet) PowerOn(dropletId int64) (interface{}, error) {
+	log.Printf("Power On Droplet: !!: %v" , dropletId)
 	return this.basicDropletAction(dropletId, DROPLETACTION_POWER_ON)
 
 }
 
 // Password Reset droplet
-func (this *Droplet) PasswordReset(dropletId string) (interface{}, error) {
-	log.Println("Password Reset for Droplet: !!: " + dropletId)
+func (this *Droplet) PasswordReset(dropletId int64) (interface{}, error) {
+	log.Printf("Password Reset for Droplet: !!: %v" , dropletId)
 	return this.basicDropletAction(dropletId, DROPLETACTION_PASSWORD_RESET)
 
 }
 
 // Resize droplet
-func (this *Droplet) Resize(dropletId, size string) (interface{}, error) {
-	log.Println("Resize Droplet: !!: " + dropletId)
+func (this *Droplet) Resize(dropletId int64, size string) (interface{}, error) {
+	log.Printf("Resize Droplet: !!: %v" , dropletId)
 	options := fmt.Sprintf(`{"type":"%v","size":"%v"}`, DROPLETACTION_RESIZE, size)
 	return this.basicDropletActionWithOptions(dropletId, options)
 
 }
 
 // Restore droplet
-func (this *Droplet) Restore(dropletId, backupImage string) (interface{}, error) {
-	log.Println("Restore Droplet: !!: " + dropletId)
+func (this *Droplet) Restore(dropletId int64, backupImage string) (interface{}, error) {
+	log.Printf("Restore Droplet: !!: %v" , dropletId)
 	options := fmt.Sprintf(`{"type":"%v","image":"%v"}`, DROPLETACTION_RESTORE, backupImage)
 	return this.basicDropletActionWithOptions(dropletId, options)
 
 }
 
 // Rebuild droplet
-func (this *Droplet) Rebuild(dropletId, backupImage string) (interface{}, error) {
-	log.Println("Rebuild Droplet: !!: " + dropletId)
+func (this *Droplet) Rebuild(dropletId int64, backupImage string) (interface{}, error) {
+	log.Printf("Rebuild Droplet: !!: %v" , dropletId)
 	options := fmt.Sprintf(`{"type":"%v","image":"%v"}`, DROPLETACTION_REBUILD, backupImage)
 	return this.basicDropletActionWithOptions(dropletId, options)
 
 }
 
 // Rename droplet
-func (this *Droplet) Rename(dropletId, dropletName string) (interface{}, error) {
-	log.Println("Rename Droplet: !!: " + dropletId)
+func (this *Droplet) Rename(dropletId int64, dropletName string) (interface{}, error) {
+	log.Printf("Rename Droplet: !!: %v" , dropletId)
 	options := fmt.Sprintf(`{"type":"%v","name":"%v"}`, DROPLETACTION_RENAME, dropletName)
 	return this.basicDropletActionWithOptions(dropletId, options)
 
 }
 
 // Disable Backups for droplet
-func (this *Droplet) DisableBackups(dropletId string) (interface{}, error) {
-	log.Println("Disable Backups for Droplet: !!: " + dropletId)
+func (this *Droplet) DisableBackups(dropletId int64) (interface{}, error) {
+	log.Printf("Disable Backups for Droplet: !!: %v" , dropletId)
 	return this.basicDropletAction(dropletId, DROPLETACTION_DISABLE_BACKUP)
 
 }
 
 // Enable IP v6 droplet
-func (this *Droplet) EnableIpv6(dropletId string) (interface{}, error) {
-	log.Println("Enable IPv6 for Droplet: !!: " + dropletId)
+func (this *Droplet) EnableIpv6(dropletId int64) (interface{}, error) {
+	log.Printf("Enable IPv6 for Droplet: !!: %v" , dropletId)
 	return this.basicDropletAction(dropletId, DROPLETACTION_ENABLE_IPV6)
 
 }
 
 // Enable Private Networking droplet
-func (this *Droplet) EnablePrivateNetworking(dropletId string) (interface{}, error) {
-	log.Println("Enable Private Networking for Droplet: !!: " + dropletId)
+func (this *Droplet) EnablePrivateNetworking(dropletId int64) (interface{}, error) {
+	log.Printf("Enable Private Networking for Droplet: !!: %v" , dropletId)
 	return this.basicDropletAction(dropletId, DROPLETACTION_ENABLE_PRIVATE_NETWORKING)
 
 }
 
 // Snapshot droplet
-func (this *Droplet) Snapshot(dropletId string) (interface{}, error) {
-	log.Println("Snapshot for Droplet: !!: " + dropletId)
+func (this *Droplet) Snapshot(dropletId int64) (interface{}, error) {
+	log.Printf("Snapshot for Droplet: !!: %v" , dropletId)
 	return this.basicDropletAction(dropletId, DROPLETACTION_SNAPSHOT)
 
 }
 
 // Basic Action type with just type parameter to URI Endpoint
 
-func (this *Droplet) basicDropletAction(dropletId, actionType string) (interface{}, error) {
+func (this *Droplet) basicDropletAction(dropletId int64, actionType string) (interface{}, error) {
 	var dropletActionResponse *DropletActionResponse
 	jsonBody, err := GetJsonResponse(
 		"POST",
@@ -232,7 +232,7 @@ func (this *Droplet) basicDropletAction(dropletId, actionType string) (interface
 
 // Basic Action type with just type parameter to URI Endpoint With Options
 
-func (this *Droplet) basicDropletActionWithOptions(dropletId, options string) (interface{}, error) {
+func (this *Droplet) basicDropletActionWithOptions(dropletId int64, options string) (interface{}, error) {
 	var dropletActionResponse *DropletActionResponse
 	jsonBody, err := GetJsonResponse(
 		"POST",
