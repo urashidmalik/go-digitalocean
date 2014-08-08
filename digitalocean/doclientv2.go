@@ -11,6 +11,7 @@ type DoClientV2 struct {
 	droplet      v2.Droplet
 	domain       v2.Domain
 	domainRecord v2.DomainRecord
+	image        v2.Image
 }
 
 func (this *DoClientV2) CreateDroplet(name string, region string, size string, image string) (interface{}, error) {
@@ -123,4 +124,8 @@ func (this *DoClientV2) ListDomainRecords(domainName string) (interface{}, error
 }
 func (this *DoClientV2) DeleteDomainRecord(domainName string, domainRecordId int64) error {
 	return this.domainRecord.Delete(domainName, domainRecordId)
+}
+
+func (this *DoClientV2) ListImages() (interface{}, error) {
+	return this.image.List()
 }

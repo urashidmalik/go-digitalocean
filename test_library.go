@@ -46,6 +46,7 @@ func main() {
 	// listDomainRecordsTest()
 	// showDomainRecordTest()
 	// deleteDomainRecordTest()
+	ListImagesTest()
 
 }
 
@@ -312,4 +313,16 @@ func deleteDomainRecordTest() {
 	} else {
 		log.Printf("Domain Record Deleted: ")
 	}
+}
+func ListImagesTest() {
+	if lListImageResponse, err := client.ListImages(); err != nil {
+		log.Printf("Houston We have Problem :%v", err)
+	} else {
+		ImageArray := lListImageResponse.(*v2.ListImageRepose).Images
+		for _, img := range ImageArray {
+			log.Printf("Images Info: %v", img)
+
+		}
+	}
+
 }

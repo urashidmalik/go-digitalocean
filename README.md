@@ -108,6 +108,9 @@ use go get github/urashidmalik/go-digitalocean to get the library.
 * Create TXT Domain Record
 * Create SRV Domain Record
 * Create NS Domain Record
-* List Domain Records Test
-* Show Domain Record Test
-* Delete DomainRecordTest
+* List Domain Records
+* Show Domain Record 
+* Delete Domain Record
+
+###### Images
+* List Images

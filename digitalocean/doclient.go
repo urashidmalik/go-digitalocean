@@ -194,59 +194,75 @@ Public funciton To Delete Domain
 func (this *DoClient) DeleteDomain(domainName string) error {
 	return this.client.DeleteDomain(domainName)
 }
+
 /*
 Public funciton To Create AAAA Domain Record for domain
 */
 func (this *DoClient) CreateAAAADomainRecord(domainName, alias, data string) (interface{}, error) {
 	return this.client.CreateAAAADomainRecord(domainName, alias, data)
 }
+
 /*
 Public funciton To Create A Domain Record for domain
 */
 func (this *DoClient) CreateADomainRecord(domainName, alias, data string) (interface{}, error) {
 	return this.client.CreateADomainRecord(domainName, alias, data)
 }
+
 /*
 Public funciton To Create MX Domain Record for domain
 */
-func (this *DoClient) CreateMXDomainRecord(domainName string,  data string, prority int64) (interface{}, error){
+func (this *DoClient) CreateMXDomainRecord(domainName string, data string, prority int64) (interface{}, error) {
 	return this.client.CreateMXDomainRecord(domainName, data, prority)
 }
+
 /*
 Public funciton To Create TXT Domain Record for domain
 */
-func (this *DoClient)  CreateTXTDomainRecord(domainName, name ,data  string) (interface{}, error){
+func (this *DoClient) CreateTXTDomainRecord(domainName, name, data string) (interface{}, error) {
 	return this.client.CreateTXTDomainRecord(domainName, name, data)
 }
+
 /*
 Public funciton To Create NS Domain Record for domain
 */
-func (this *DoClient) CreateNSDomainRecord(domainName, data  string) (interface{}, error) {
-	return this.client.CreateNSDomainRecord(domainName,  data)
+func (this *DoClient) CreateNSDomainRecord(domainName, data string) (interface{}, error) {
+	return this.client.CreateNSDomainRecord(domainName, data)
 }
+
 /*
 Public funciton To Create SRV Domain Record for domain
 */
-func (this *DoClient) CreateSRVDomainRecord(domainName string, name string,data  string,  prority int64, port int64, weight int64) (interface{}, error) {
-	return this.client.CreateSRVDomainRecord(domainName, name,data ,  prority, port, weight)
+func (this *DoClient) CreateSRVDomainRecord(domainName string, name string, data string, prority int64, port int64, weight int64) (interface{}, error) {
+	return this.client.CreateSRVDomainRecord(domainName, name, data, prority, port, weight)
 }
+
 /*
 Public funciton To Show Domain Record for domain
 */
-func (this *DoClient) ShowDomainRecord(domainName string, domainRecordId int64)  (interface{}, error){
-	return this.client.ShowDomainRecord(domainName, domainRecordId )
+func (this *DoClient) ShowDomainRecord(domainName string, domainRecordId int64) (interface{}, error) {
+	return this.client.ShowDomainRecord(domainName, domainRecordId)
 }
+
 /*
 Public funciton To List all Domain Records for domain
 */
-func (this *DoClient) ListDomainRecords(domainName string) (interface{}, error){
+func (this *DoClient) ListDomainRecords(domainName string) (interface{}, error) {
 	return this.client.ListDomainRecords(domainName)
 }
+
 /*
 Public funciton To Delete Domain Record for domain
 */
-func (this *DoClient) DeleteDomainRecord(domainName string, domainRecordId int64) error{
-	return this.client.DeleteDomainRecord(domainName, domainRecordId )
+func (this *DoClient) DeleteDomainRecord(domainName string, domainRecordId int64) error {
+	return this.client.DeleteDomainRecord(domainName, domainRecordId)
+}
+
+/*
+Public funciton To List all images
+*/
+func (this *DoClient) ListImages() (interface{}, error) {
+	return this.client.ListImages()
 }
 
 /*
@@ -266,7 +282,7 @@ type DoProvisioner interface {
 	ResizeDroplet(dropletId int64, size string) (interface{}, error)
 	RestoreDroplet(dropletId int64, image string) (interface{}, error)
 	RebuildDroplet(dropletId int64, image string) (interface{}, error)
-	RenameDroplet(dropletId int64 , dropletName string) (interface{}, error)
+	RenameDroplet(dropletId int64, dropletName string) (interface{}, error)
 	EnableIpv6Droplet(dropletId int64) (interface{}, error)
 	DisableBackupsDroplet(dropletId int64) (interface{}, error)
 	EnablePrivateNetworkingDroplet(dropletId int64) (interface{}, error)
@@ -277,13 +293,14 @@ type DoProvisioner interface {
 	DeleteDomain(domainName string) error
 	CreateAAAADomainRecord(domainName, alias, data string) (interface{}, error)
 	CreateADomainRecord(domainName, subdomain, data string) (interface{}, error)
-	CreateMXDomainRecord(domainName string,  data string, prority int64) (interface{}, error)
-	CreateTXTDomainRecord(domainName, name ,data  string) (interface{}, error)
-	CreateNSDomainRecord(domainName, data  string) (interface{}, error)
-	CreateSRVDomainRecord(domainName string, name string,data  string,  prority int64, port int64, weight int64) (interface{}, error) 
-	ShowDomainRecord(domainName string, domainRecordId int64)  (interface{}, error)
+	CreateMXDomainRecord(domainName string, data string, prority int64) (interface{}, error)
+	CreateTXTDomainRecord(domainName, name, data string) (interface{}, error)
+	CreateNSDomainRecord(domainName, data string) (interface{}, error)
+	CreateSRVDomainRecord(domainName string, name string, data string, prority int64, port int64, weight int64) (interface{}, error)
+	ShowDomainRecord(domainName string, domainRecordId int64) (interface{}, error)
 	ListDomainRecords(domainName string) (interface{}, error)
-	DeleteDomainRecord(domainName string, domainRecordId int64)  error
+	DeleteDomainRecord(domainName string, domainRecordId int64) error
+	ListImages() (interface{}, error)
 }
 
 // this function makes DoClientV... implment DoProvisioner
