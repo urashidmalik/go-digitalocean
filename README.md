@@ -1,3 +1,5 @@
+[![Build Status](https://drone.io/github.com/urashidmalik/go-digitalocean/status.png)](https://drone.io/github.com/urashidmalik/go-digitalocean/latest)
+
 go-digitalocean
 ===============
 
